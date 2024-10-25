@@ -1,25 +1,58 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export default function App() {
 
-export default App;
+  const [posicaoX, setPosicaoX] = useState(0);
+  const [posicaoY, setPosicaoY] = useState(0);
+
+  const personagem = {
+
+    id: 'birdy',
+    image: 'img/nave.png',
+    class: 'birdy',
+    tema: {
+      left: posicaoX + 'px',
+      top: posicaoY + 'px',
+    }
+
+  };
+
+  const funcao = (event) => {
+
+    switch (event.key) {
+
+      case 'ArrowUp':
+        setPosicaoY((prevPosicaoX) => prevPosicaoX - 5);
+        break;
+
+      case 'ArrowDown':
+        setPosicaoY((prevPosicaoX) => prevPosicaoX + 5);
+        break;
+
+      case 'ArrowLeft':
+        setPosicaoX((prevPosicaoX) => prevPosicaoX - 5);
+        break;
+
+      case 'ArrowRight':
+        setPosicaoX((prevPosicaoX) => prevPosicaoX + 5);
+        break;
+
+    }
+
+  };
+
+  useEffect(() => {
+
+    const elemento = document.body;
+    elemento.addEventListener('keydown', funcao);
+
+  }, []);
+
+  return (
+    <>
+      <img id={personagem.id} src={personagem.image} className={personagem.class} style={personagem.tema} />
+    </>
+  );
+
+}
